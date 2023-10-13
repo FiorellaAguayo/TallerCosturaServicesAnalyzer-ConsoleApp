@@ -15,7 +15,7 @@ typedef struct
 #endif // SERVICIO_H_INCLUDED
 
 eServicio* newServicio();
-eServicio* servicios_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr);
+eServicio* servicio_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr);
 
 void servicio_deleteServicio(eServicio* unServicio);
 
@@ -23,7 +23,7 @@ int servicio_setId(eServicio* unServicio, int idServicio);
 int servicio_getId(eServicio* unServicio, int* idServicio);
 
 int servicio_setDescripcion(eServicio* unServicio, char* descripcion);
-int servicios_getDescripcion(eServicio* unServicio, char* descripcion);
+int servicio_getDescripcion(eServicio* unServicio, char* descripcion);
 
 int servicio_setTipo(eServicio* unServicio, int tipo);
 int servicio_getTipo(eServicio* unServicio, int* tipo);
@@ -36,3 +36,6 @@ int servicio_getCantidad(eServicio* unServicio, int* cantidad);
 
 int servicio_setTotalServicios(eServicio* unServicio, float totalServicio);
 int servicio_getTotalServicios(eServicio* unServicio, float* totalServicio);
+
+void servicio_mostrarEncabezado();
+int servicio_mostrarUnServicio(eServicio* unServicio);

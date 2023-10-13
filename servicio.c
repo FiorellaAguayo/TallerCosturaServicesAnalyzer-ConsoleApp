@@ -19,18 +19,18 @@ eServicio* newServicio()
     return unServicio;
 }
 
-eServicio* servicios_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr)
+eServicio* servicio_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr)
 {
     eServicio* unServicio;
     unServicio = newServicio();
     if(unServicio != NULL)
     {
-        while(!(servicio_setId(unServicio, atoi(idStr)
-              && servicio_setDescripcion(unServicio, descripcionStr)
-              && servicio_setTipo(unServicio, atoi(tipoStr))
-              && servicio_setPrecioUnitario(unServicio, atof(precioUnitarioStr))
-              && servicio_setCantidad(unServicio, atoi(cantidadStr))
-              && servicio_setTotalServicios(totalServicioStr, atof(totalServicioStr)))))
+        while(servicio_setId(unServicio, atoi(idStr)) == 0
+              && servicio_setDescripcion(unServicio, descripcionStr) == 0
+              && servicio_setTipo(unServicio, atoi(tipoStr)) == 0
+              && servicio_setPrecioUnitario(unServicio, atof(precioUnitarioStr)) == 0
+              && servicio_setCantidad(unServicio, atoi(cantidadStr)) == 0
+              && servicio_setTotalServicios(unServicio, atof(totalServicioStr)) == 0)
         {
             servicio_deleteServicio(unServicio);
             unServicio = NULL;
@@ -77,7 +77,7 @@ int servicio_setDescripcion(eServicio* unServicio, char* descripcion)
     return todoOk;
 }
 
-int servicios_getDescripcion(eServicio* unServicio, char* descripcion)
+int servicio_getDescripcion(eServicio* unServicio, char* descripcion)
 {
 	int todoOk = 0;
 	if(unServicio != NULL && descripcion != NULL)
@@ -171,6 +171,32 @@ int servicio_getTotalServicios(eServicio* unServicio, float* totalServicio)
     if(unServicio != NULL && totalServicio != NULL)
     {
         *totalServicio = unServicio->totalServicio;
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+void servicio_mostrarEncabezado()
+{
+    printf("\n-----------------------------------------------------------------------------------------------\n");
+    printf("| id  |  descripcion       | tipo          | precio unitario        | cantidad | total servicio |\n");
+    printf("-------------------------------------------------------------------------------------------------\n");
+}
+
+int servicio_mostrarUnServicio(eServicio* unServicio)
+{
+    int todoOk = 0;
+    eServicio auxServicio;
+    if(unServicio != NULL)
+    {
+        servicio_getId(unServicio, &auxServicio.id_servicio);
+        servicio_getDescripcion(unServicio, auxServicio.descripcion);
+        servicio_getTipo(unServicio, &auxServicio.tipo);
+        servicio_getPrecioUnitario(unServicio, &auxServicio.precioUnitario);
+        servicio_getCantidad(unServicio, &auxServicio.cantidad);
+        servicio_getTotalServicios(unServicio, &auxServicio.totalServicio);
+
+        printf("| %-3d | %-6s | %-15d | %-15f | %-10d | %-5f|\n", auxServicio.id_servicio, auxServicio.descripcion, auxServicio.tipo, auxServicio.precioUnitario, auxServicio.cantidad, auxServicio.totalServicio);
         todoOk = 1;
     }
     return todoOk;

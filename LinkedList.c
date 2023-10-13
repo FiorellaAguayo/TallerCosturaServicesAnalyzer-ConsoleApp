@@ -88,21 +88,33 @@ static int addNode(Linkedlist* thisList, int nodeIndex, void* pElement)
     int todoOk = -1;
     Node* nuevoNodo = NULL;
     Node* anterior = NULL;
-    if(thisList != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(thisList))
+
+    if (thisList != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(thisList))
     {
-        nuevoNodo->pElement = pElement;
-        nuevoNodo->pNextNode = getNode(thisList, nodeIndex);
-        if(nodeIndex == 0)
+        nuevoNodo = (Node*)malloc(sizeof(Node)); // Reservar memoria para el nuevo nodo
+        if (nuevoNodo != NULL)
         {
-            thisList->pFirstNode = nuevoNodo;
+            nuevoNodo->pElement = pElement;
+            nuevoNodo->pNextNode = NULL; // Establecer el siguiente nodo como NULL inicialmente
+
+            if (nodeIndex == 0)
+            {
+                nuevoNodo->pNextNode = thisList->pFirstNode;
+                thisList->pFirstNode = nuevoNodo;
+            }
+            else
+            {
+                anterior = getNode(thisList, nodeIndex - 1);
+                if (anterior != NULL)
+                {
+                    nuevoNodo->pNextNode = anterior->pNextNode;
+                    anterior->pNextNode = nuevoNodo;
+                }
+            }
+
+            thisList->size++;
+            todoOk = 0;
         }
-        else
-        {
-            anterior = getNode(thisList, nodeIndex - 1);
-            anterior->pNextNode = nuevoNodo;
-        }
-        thisList->size++;
-        todoOk = 0;
     }
     return todoOk;
 }

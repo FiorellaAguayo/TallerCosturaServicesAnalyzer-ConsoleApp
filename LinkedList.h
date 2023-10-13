@@ -17,7 +17,7 @@ struct Linkedlist
 
 //Publicas
 Linkedlist* ll_newLinkedList();
-int ll_len(Linkedlist* thisList);                                     //devuelve el valor del campo int size
+int ll_len(Linkedlist* thisList);
 Node* test_getNode(Linkedlist* thisList, int nodeIndex);
 int test_addNode(Linkedlist* thisList, int nodeIndex, void* pElement);
 int ll_add(Linkedlist* thisList, void* pElement);

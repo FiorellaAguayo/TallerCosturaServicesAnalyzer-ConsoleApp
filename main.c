@@ -19,7 +19,7 @@ int main()
             case 1:
                 //cargar archivo
                 pedirArchivoCSV(nombreArchivo, "\nPor favor, ingrese el nombre del archivo con extension .csv: ", "\nEl nombre no es valida");
-                if(cargarArchivoDesdeTexto(nombreArchivo, listaServicios))
+                if(controller_cargarArchivoDesdeTexto(nombreArchivo, listaServicios))
                 {
                     printf("\nEl archivo '%s' se ha cargado correctamente.", nombreArchivo);
                     flag = 1;
@@ -33,7 +33,14 @@ int main()
                 //imprimir lista
                 if(flag)
                 {
-
+                    if(controller_imprimirLista(listaServicios))
+                    {
+                        printf("\nSe imprimio la lista correctamente.");
+                    }
+                    else
+                    {
+                        printf("\nHubo un problema al imprimir '%s'.", nombreArchivo);
+                    }
                 }
                 else
                 {
