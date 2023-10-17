@@ -8,8 +8,7 @@ typedef struct
     int tipo;
     float precioUnitario;
     int cantidad;
-    float totalServicio;
-    int isEmpty;
+    int totalServicio;
 }eServicio;
 
 #endif // SERVICIO_H_INCLUDED
@@ -34,8 +33,8 @@ int servicio_getPrecioUnitario(eServicio* unServicio, float* precioUnitario);
 int servicio_setCantidad(eServicio* unServicio, int cantidad);
 int servicio_getCantidad(eServicio* unServicio, int* cantidad);
 
-int servicio_setTotalServicios(eServicio* unServicio, float totalServicio);
-int servicio_getTotalServicios(eServicio* unServicio, float* totalServicio);
+int servicio_setTotalServicios(eServicio* unServicio, int totalServicio);
+int servicio_getTotalServicios(eServicio* unServicio, int* totalServicio);
 
 void servicio_mostrarEncabezado();
 int servicio_mostrarUnServicio(eServicio* unServicio);

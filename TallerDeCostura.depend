@@ -14,7 +14,7 @@
 
 1696288619 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\inputs.h
 
-1696648048 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.c
+1697505168 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -37,7 +37,7 @@
 
 1696118919 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\menus.h
 
-1696642198 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\linkedlist.c
+1697490785 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\linkedlist.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -47,14 +47,14 @@
 1696647921 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\controller.h
 	"LinkedList.h"
 
-1696646409 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.c
+1697501592 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"servicio.h"
 	"parser.h"
 	"LinkedList.h"
 
-1696648045 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.h
+1697502101 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.h
 
 1696217644 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.h
 	"LinkedList.h"
