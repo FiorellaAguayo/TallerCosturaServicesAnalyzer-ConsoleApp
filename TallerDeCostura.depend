@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1696649270 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\main.c
+1697674770 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\main.c
 	<stdio.h>
 	<stdlib.h>
 	"menus.h"
@@ -7,27 +7,27 @@
 	"LinkedList.h"
 	"controller.h"
 
-1696119064 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\menus.c
+1697673845 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\menus.c
 	<stdio.h>
 	<stdlib.h>
 	"inputs.h"
 
-1696288619 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\inputs.h
+1697673102 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\inputs.h
 
-1697505168 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.c
+1697674563 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"servicio.h"
 
-1696289078 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\inputs.c
+1697673088 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\inputs.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<ctype.h>
 	"inputs.h"
 
-1696648055 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\controller.c
+1697674806 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\controller.c
 	<stdio.h>
 	<stdlib.h>
 	"controller.h"
@@ -35,27 +35,27 @@
 	"LinkedList.h"
 	"servicio.h"
 
-1696118919 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\menus.h
+1697674845 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\menus.h
 
-1697490785 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\linkedlist.c
+1697672043 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\linkedlist.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 
-1696647366 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\linkedlist.h
+1697672062 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\linkedlist.h
 
-1696647921 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\controller.h
+1697674814 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\controller.h
 	"LinkedList.h"
 
-1697501592 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.c
+1697673254 source:c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"servicio.h"
 	"parser.h"
 	"LinkedList.h"
 
-1697502101 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.h
+1697674496 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\servicio.h
 
-1696217644 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.h
+1697673650 c:\users\fiore\onedrive\escritorio\proyectos_codeblocks\tallerdecostura\parser.h
 	"LinkedList.h"
 

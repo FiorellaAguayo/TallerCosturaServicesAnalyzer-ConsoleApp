@@ -3,208 +3,436 @@
 #include <string.h>
 #include "servicio.h"
 
-eServicio* newServicio()
+/**
+ * @brief Crea una nueva instancia de la estructura "eServicio" y la inicializa con valores predeterminados.
+ * Esta función aloca memoria dinámica para una nueva instancia de la estructura "eServicio" y la inicializa con valores predeterminados.
+ * @return Puntero a la nueva instancia de "eServicio" creada, o NULL en caso de error en la asignación de memoria.
+ */
+eServicio* entity_new()
 {
-    eServicio* unServicio;
-    unServicio = (eServicio*)malloc(sizeof(eServicio));
-    if(unServicio != NULL)
+    eServicio* entity;
+    entity = (eServicio*)malloc(sizeof(eServicio));
+    if(entity != NULL)
     {
-        unServicio->id_servicio = 0;
-        strcpy(unServicio->descripcion, "-");
-        unServicio->tipo = 0;
-        unServicio->precioUnitario = 0.00;
-        unServicio->cantidad = 0;
-        unServicio->totalServicio = 0;
+        entity->id_servicio = 0;
+        strcpy(entity->descripcion, " ");
+        entity->tipo = 0;
+        entity->precioUnitario = 0.00;
+        entity->cantidad = 0;
+        entity->totalServicio = 0.00;
     }
-    return unServicio;
+    return entity;
 }
 
-eServicio* servicio_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr)
+/**
+ * @brief Crea una nueva instancia de la estructura "eServicio" y la inicializa con valores proporcionados.
+ * Esta función crea una nueva instancia de la estructura "eServicio" y la inicializa con valores proporcionados a través de parámetros.
+ * @param idStr Cadena que representa el ID del artículo.
+ * @param descripcionStr Cadena que representa la descripción del artículo.
+ * @param tipoStr Cadena que representa el tipo del artículo.
+ * @param precioUnitarioStr Cadena que representa el precio unitario del artículo.
+ * @param cantidadStr Cadena que representa la cantidad del artículo.
+ * @param totalServicioStr Cadena que representa el total del bulto del artículo.
+ * @return Puntero a la nueva instancia de "eServicio" creada y inicializada con los valores proporcionados, o NULL en caso de error.
+ */
+eServicio* entity_newParameters(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr)
 {
-    eServicio* unServicio;
-    unServicio = newServicio();
-
-    if(unServicio != NULL)
+    eServicio* entity;
+    entity = entity_new();
+    if(entity != NULL)
     {
-        if( servicio_setId(unServicio, atoi(idStr)) == -1 ||
-            servicio_setDescripcion(unServicio, descripcionStr) == -1 ||
-            servicio_setTipo(unServicio, atoi(tipoStr)) == -1 ||
-            servicio_setPrecioUnitario(unServicio, atof(precioUnitarioStr)) == -1 ||
-            servicio_setCantidad(unServicio, atoi(cantidadStr)) == -1 ||
-            servicio_setTotalServicios(unServicio, atoi(totalServicioStr)) == -1 )
+        if( entity_setId(entity, atoi(idStr)) == -1 ||
+            entity_setDescripcion(entity, descripcionStr) == -1 ||
+            entity_setTipo(entity, atoi(tipoStr)) == -1 ||
+            entity_setPrecioUnitario(entity, atof(precioUnitarioStr)) == -1 ||
+            entity_setCantidad(entity, atoi(cantidadStr)) == -1 ||
+            entity_setTotalServicios(entity, atof(totalServicioStr)) == -1 )
         {
-            unServicio = NULL;
-            servicio_deleteServicio(unServicio);
+            entity = NULL;
+            entity_deleteEntity(entity);
         }
     }
-    return unServicio;
+    return entity;
 }
 
-void servicio_deleteServicio(eServicio* unServicio)
+/**
+ * @brief Libera la memoria ocupada por una instancia de la estructura "eServicio".
+ * Esta función libera la memoria asignada dinámicamente para una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" cuya memoria se desea liberar.
+ */
+void entity_deleteEntity(eServicio* entity)
 {
-    if(unServicio != NULL)
+    if(entity != NULL)
     {
-        free(unServicio);
+        free(entity);
     }
 }
 
-int servicio_setId(eServicio* unServicio, int idServicio)
+/**
+ * @brief Establece el ID del artículo en una instancia de la estructura "eServicio".
+ * Esta función asigna un valor de ID del artículo a una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" en la que se establecerá el ID.
+ * @param idArticulo El valor del ID del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el ID, -1 en caso de error (puntero nulo o ID no válido).
+ */
+int entity_setId(eServicio* entity, int idArticulo)
 {
-    int todoOk = -1;
-
-    if(unServicio != NULL && idServicio > 0)
+    int allOk = -1;
+    if(entity != NULL && idArticulo > 0)
     {
-        unServicio->id_servicio = idServicio;
-        todoOk = 0;
+        entity->id_servicio = idArticulo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_getId(eServicio* unServicio, int* idServicio)
+/**
+ * @brief Obtiene el ID del artículo de una instancia de la estructura "eServicio".
+ * Esta función obtiene el valor de ID del artículo desde una instancia de la estructura "eServicio" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eServicio" de la que se obtendrá el ID del artículo.
+ * @param idArticulo Puntero a la variable donde se almacenará el ID del artículo.
+ * @return Devuelve 0 si se obtiene correctamente el ID del artículo, -1 en caso de error (punteros nulos).
+ */
+int entity_getId(eServicio* entity, int* idArticulo)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && idServicio != NULL)
+    int allOk = -1;
+    if(entity != NULL && idArticulo != NULL)
     {
-        *idServicio = unServicio->id_servicio;
-        todoOk = 0;
+        *idArticulo = entity->id_servicio;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_setDescripcion(eServicio* unServicio, char* descripcion)
+/**
+ * @brief Establece la descripción de un artículo en una instancia de la estructura "eServicio".
+ * Esta función asigna una descripción de artículo a una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" en la que se establecerá la descripción.
+ * @param descripcion La cadena de caracteres que representa la descripción del artículo.
+ * @return Devuelve 0 si se establece correctamente la descripción, -1 en caso de error (puntero nulo).
+ */
+int entity_setDescripcion(eServicio* entity, char* descripcion)
 {
-	int todoOk = -1;
-	if(unServicio != NULL)
+	int allOk = -1;
+	if(entity != NULL)
 	{
-		strcpy(unServicio->descripcion, descripcion);
-        todoOk = 0;
+		strcpy(entity->descripcion, descripcion);
+        allOk = 0;
 	}
-    return todoOk;
+    return allOk;
 }
 
-int servicio_getDescripcion(eServicio* unServicio, char* descripcion)
+/**
+ * @brief Obtiene la descripción de un artículo desde una instancia de la estructura "eServicio".
+ * Esta función obtiene la descripción de un artículo desde una instancia de la estructura "eServicio" y la almacena en la cadena de caracteres proporcionada.
+ * @param entity Puntero a la instancia de "eServicio" de la que se obtendrá la descripción.
+ * @param descripcion Puntero a la cadena de caracteres donde se almacenará la descripción del artículo.
+ * @return Devuelve 0 si se obtiene correctamente la descripción, -1 en caso de error (punteros nulos).
+ */
+int entity_getDescripcion(eServicio* entity, char* descripcion)
 {
-	int todoOk = -1;
-	if(unServicio != NULL && descripcion != NULL)
+	int allOk = -1;
+	if(entity != NULL && descripcion != NULL)
 	{
-		strcpy(descripcion, unServicio->descripcion);
-		todoOk = 0;
+		strcpy(descripcion, entity->descripcion);
+		allOk = 0;
 	}
-	return todoOk;
+	return allOk;
 }
 
-int servicio_setTipo(eServicio* unServicio, int tipo)
+/**
+ * @brief Establece el tipo de artículo en una instancia de la estructura "eServicio".
+ * Esta función asigna un valor de tipo de artículo a una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" en la que se establecerá el tipo.
+ * @param tipo El valor del tipo de artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el tipo, -1 en caso de error (puntero nulo o tipo no válido).
+ */
+int entity_setTipo(eServicio* entity, int tipo)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && tipo > 0)
+    int allOk = -1;
+    if(entity != NULL && tipo > 0)
     {
-        unServicio->tipo = tipo;
-        todoOk = 0;
+        entity->tipo = tipo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_getTipo(eServicio* unServicio, int* tipo)
+/**
+ * @brief Obtiene el tipo de artículo de una instancia de la estructura "eServicio".
+ * Esta función obtiene el valor del tipo de artículo desde una instancia de la estructura "eServicio" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eServicio" de la que se obtendrá el tipo de artículo.
+ * @param tipo Puntero a la variable donde se almacenará el tipo de artículo.
+ * @return Devuelve 0 si se obtiene correctamente el tipo de artículo, -1 en caso de error (punteros nulos).
+ */
+int entity_getTipo(eServicio* entity, int* tipo)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && tipo != NULL)
+    int allOk = -1;
+    if(entity != NULL && tipo != NULL)
     {
-        *tipo = unServicio->tipo;
-        todoOk = 0;
+        *tipo = entity->tipo;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_setPrecioUnitario(eServicio* unServicio, float precioUnitario)
+/**
+ * @brief Establece el precio unitario de un artículo en una instancia de la estructura "eServicio".
+ * Esta función asigna un valor de precio unitario a una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" en la que se establecerá el precio unitario.
+ * @param precioUnitario El valor del precio unitario del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el precio unitario, -1 en caso de error (puntero nulo o precio no válido).
+ */
+int entity_setPrecioUnitario(eServicio* entity, float precioUnitario)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && precioUnitario > 0)
+    int allOk = -1;
+    if(entity != NULL && precioUnitario > 0)
     {
-        unServicio->precioUnitario = precioUnitario;
-        todoOk = 0;
+        entity->precioUnitario = precioUnitario;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_setCantidad(eServicio* unServicio, int cantidad)
+/**
+ * @brief Obtiene el precio unitario de un artículo desde una instancia de la estructura "eServicio".
+ * Esta función obtiene el valor del precio unitario del artículo desde una instancia de la estructura "eServicio" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eServicio" de la que se obtendrá el precio unitario del artículo.
+ * @param precioUnitario Puntero a la variable donde se almacenará el precio unitario del artículo.
+ * @return Devuelve 0 si se obtiene correctamente el precio unitario, -1 en caso de error (punteros nulos).
+ */
+int entity_getPrecioUnitario(eServicio* entity, float* precioUnitario)
 {
-    int todoOk = -1;
-    if(unServicio != NULL)
+    int allOk = -1;
+    if(entity != NULL && precioUnitario != NULL)
     {
-        unServicio->cantidad = cantidad;
-        todoOk = 0;
+        *precioUnitario = entity->precioUnitario;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_getCantidad(eServicio* unServicio, int* cantidad)
+/**
+ * @brief Establece la cantidad de un artículo en una instancia de la estructura "eServicio".
+ * Esta función asigna un valor de cantidad a una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" en la que se establecerá la cantidad.
+ * @param cantidad El valor de la cantidad del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente la cantidad, -1 en caso de error (puntero nulo).
+ */
+int entity_setCantidad(eServicio* entity, int cantidad)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && cantidad != NULL)
+    int allOk = -1;
+    if(entity != NULL)
     {
-        *cantidad = unServicio->cantidad;
-
-        todoOk = 0;
+        entity->cantidad = cantidad;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_getPrecioUnitario(eServicio* unServicio, float* precioUnitario)
+/**
+ * @brief Obtiene la cantidad de un artículo desde una instancia de la estructura "eServicio".
+ * Esta función obtiene el valor de cantidad del artículo desde una instancia de la estructura "eServicio" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eServicio" de la que se obtendrá la cantidad del artículo.
+ * @param cantidad Puntero a la variable donde se almacenará la cantidad del artículo.
+ * @return Devuelve 0 si se obtiene correctamente la cantidad, -1 en caso de error (punteros nulos).
+ */
+int entity_getCantidad(eServicio* entity, int* cantidad)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && precioUnitario != NULL)
+    int allOk = -1;
+    if(entity != NULL && cantidad != NULL)
     {
-        *precioUnitario = unServicio->precioUnitario;
-        todoOk = 0;
+        *cantidad = entity->cantidad;
+
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_setTotalServicios(eServicio* unServicio, int totalServicio)
+/**
+ * @brief Establece el total de compras de un artículo en una instancia de la estructura "eServicio".
+ * Esta función asigna un valor de total de compras a una instancia de la estructura "eServicio".
+ * @param entity Puntero a la instancia de "eServicio" en la que se establecerá el total de compras.
+ * @param totalServicio El valor del total de compras del artículo que se asignará a la instancia.
+ * @return Devuelve 0 si se establece correctamente el total de compras, -1 en caso de error (puntero nulo o total no válido).
+ */
+int entity_setTotalServicios(eServicio* entity, float totalServicio)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && totalServicio >= 0)
+    int allOk = -1;
+    if(entity != NULL && totalServicio >= 0)
     {
-        unServicio->totalServicio = totalServicio;
-        todoOk = 0;
+        entity->totalServicio = totalServicio;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-int servicio_getTotalServicios(eServicio* unServicio, int* totalServicio)
+/**
+ * @brief Obtiene el total de compras de un artículo desde una instancia de la estructura "eServicio".
+ * Esta función obtiene el valor del total de compras del artículo desde una instancia de la estructura "eServicio" y lo almacena en la variable proporcionada.
+ * @param entity Puntero a la instancia de "eServicio" de la que se obtendrá el total de compras del artículo.
+ * @param totalServicio Puntero a la variable donde se almacenará el total de compras del artículo.
+ * @return Devuelve 0 si se obtiene correctamente el total de compras, -1 en caso de error (punteros nulos).
+ */
+int entity_getTotalServicios(eServicio* entity, float* totalServicio)
 {
-    int todoOk = -1;
-    if(unServicio != NULL && totalServicio != NULL)
+    int allOk = -1;
+    if(entity != NULL && totalServicio != NULL)
     {
-        *totalServicio = unServicio->totalServicio;
-        todoOk = 0;
+        *totalServicio = entity->totalServicio;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
-void servicio_mostrarEncabezado()
+/**
+ * @brief Muestra el encabezado de la tabla de compras.
+ * Esta función imprime en la consola el encabezado de la tabla de compras con las columnas correspondientes.
+ */
+void entity_showHeader()
 {
-    printf("\n--------------------------------------------------------------------------------------------------------\n");
-    printf("| ID  |  DESCRIPCION            | TIPO            | PRECIO UNITARIO      | CANTIDAD   | TOTAL SERVICIO |\n");
-    printf("--------------------------------------------------------------------------------------------------------\n");
+    printf("\n-----------------------------------------------------------------------------------------------------------\n");
+    printf("| ID  |  DESCRIPCION               | TIPO            | PRECIO UNITARIO      | CANTIDAD   | TOTAL SERVICIO |\n");
+    printf("-----------------------------------------------------------------------------------------------------------\n");
 }
 
-int servicio_mostrarUnServicio(eServicio* unServicio)
+/**
+ * @brief Muestra los detalles de un artículo de compra.
+ * Esta función muestra en la consola los detalles de un artículo de compra, incluyendo su ID, descripción, tipo, precio unitario, cantidad y total de servicio.
+ * @param entity Puntero a la instancia de "eServicio" cuyos detalles se mostrarán.
+ * @return Devuelve 1 si se muestra correctamente el artículo, 0 en caso de error (puntero nulo).
+ */
+int entity_showOneEntity(eServicio* entity)
 {
-    int todoOk = 0;
-    eServicio auxServicio;
-    if(unServicio != NULL)
+    int allOk = 0;
+    eServicio auxEntity;
+    if(entity != NULL)
     {
-        servicio_getId(unServicio, &auxServicio.id_servicio);
-        servicio_getDescripcion(unServicio, auxServicio.descripcion);
-        servicio_getTipo(unServicio, &auxServicio.tipo);
-        servicio_getPrecioUnitario(unServicio, &auxServicio.precioUnitario);
-        servicio_getCantidad(unServicio, &auxServicio.cantidad);
-        servicio_getTotalServicios(unServicio, &auxServicio.totalServicio);
+        entity_getId(entity, &auxEntity.id_servicio);
+        entity_getDescripcion(entity, auxEntity.descripcion);
+        entity_getTipo(entity, &auxEntity.tipo);
+        entity_getPrecioUnitario(entity, &auxEntity.precioUnitario);
+        entity_getCantidad(entity, &auxEntity.cantidad);
+        entity_getTotalServicios(entity, &auxEntity.totalServicio);
 
-        printf("| %-3d | %-23s | %-15d | %-20.2f | %-10d | %-15d|\n", auxServicio.id_servicio, auxServicio.descripcion, auxServicio.tipo, auxServicio.precioUnitario, auxServicio.cantidad, auxServicio.totalServicio);
-        printf("--------------------------------------------------------------------------------------------------------\n");
-        todoOk = 1;
+        printf("| %-3d | %-26s | %-15d | %-20.2f | %-10d | %-15.2f|\n", auxEntity.id_servicio, auxEntity.descripcion, auxEntity.tipo, auxEntity.precioUnitario, auxEntity.cantidad, auxEntity.totalServicio);
+        printf("-----------------------------------------------------------------------------------------------------------\n");
+        allOk = 1;
     }
-    return todoOk;
+    return allOk;
+}
+
+/**
+ * @brief Calcula el total de compras y lo asigna a cada artículo de compra en la lista.
+ * Esta función calcula el total de compras para cada artículo de compra en la lista y lo asigna a cada instancia de "eServicio".
+ * @param element Puntero a la instancia de "eServicio" en la lista.
+ * @return Puntero a la instancia de "eServicio" con el total de compras calculado.
+ */
+void* entity_map(void* element)
+{
+    eServicio* entity;
+    int cantidad;
+    float precioUnitario;
+    float totalServicio;
+    entity = (eServicio*) element;
+    entity_getCantidad(entity, &cantidad);
+    entity_getPrecioUnitario(entity, &precioUnitario);
+
+    if(entity != NULL)
+    {
+        totalServicio = (float)cantidad * precioUnitario;
+        entity_setTotalServicios(entity, totalServicio);
+    }
+    return entity;
+}
+
+/**
+ * @brief Filtra artículos de juguetería en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de juguetería en la lista de compras.
+ * @param element Puntero a la instancia de "eServicio" en la lista.
+ * @return Devuelve 1 si el artículo es de juguetería, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByMinorista(void* element)
+{
+    int allOk = 0;
+    eServicio* entity = (eServicio*) element;
+    if(entity != NULL)
+    {
+        if(entity->tipo == 1)
+        {
+            allOk = 1;
+        }
+    }
+    return allOk;
+}
+
+/**
+ * @brief Filtra artículos de electrónica en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de electrónica en la lista de compras.
+ * @param element Puntero a la instancia de "eServicio" en la lista.
+ * @return Devuelve 1 si el artículo es de electrónica, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByMayorista(void* element)
+{
+    int allOk = 0;
+    eServicio* entity = (eServicio*) element;
+    if(entity != NULL)
+    {
+        if(entity->tipo == 2)
+        {
+            allOk = 1;
+        }
+    }
+    return allOk;
+}
+
+/**
+ * @brief Filtra artículos de indumentaria en la lista.
+ * Esta función se utiliza como función de filtro para identificar artículos de indumentaria en la lista de compras.
+ * @param element Puntero a la instancia de "eServicio" en la lista.
+ * @return Devuelve 1 si el artículo es de indumentaria, 0 en caso contrario o en caso de error (puntero nulo).
+ */
+int entity_filterByExportar(void* element)
+{
+    int allOk = 0;
+    eServicio* entity = (eServicio*) element;
+    if(entity != NULL)
+    {
+        if(entity->tipo == 3)
+        {
+            allOk = 1;
+        }
+    }
+    return allOk;
+}
+
+/**
+ * @brief Compara dos artículos de compra por descripción para ordenamiento.
+ * Esta función se utiliza como función de comparación para ordenar dos artículos de compra por su descripción en orden alfabético.
+ * @param item1 Puntero a la primera instancia de "eServicio" para comparar.
+ * @param item2 Puntero a la segunda instancia de "eServicio" para comparar.
+ * @return Devuelve 1 si el primer artículo es mayor en orden alfabético, -1 si es menor y 0 si son iguales o en caso de error (punteros nulos).
+ */
+int entity_sortByDescripcion(void* item1, void* item2)
+{
+    int allOk = 0;
+    eServicio* entity1 = (eServicio*) item1;
+    eServicio* entity2 = (eServicio*) item2;
+    char description1[50];
+    char description2[50];
+    if(entity1 != NULL && entity2 != NULL)
+    {
+        if(entity_getDescripcion(entity1, description1) == 0 && entity_getDescripcion(entity2, description2) == 0)
+        {
+            if(strcmp(description1, description2) > 0)
+            {
+                allOk = 1;
+            }
+            else if(strcmp(description1, description2) < 0)
+            {
+                allOk = -1;
+            }
+        }
+    }
+    return allOk;
 }

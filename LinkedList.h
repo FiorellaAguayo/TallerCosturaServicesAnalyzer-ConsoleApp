@@ -32,3 +32,8 @@ int ll_push(Linkedlist* thisList, int nodeIndex, void* pElement);
 void* ll_pop(Linkedlist* thisList, int nodeIndex);                          //elimina un elemento (los enlaces a ese elemento) y devuelve un puntero a ese elemento
 int ll_contains(Linkedlist* thisList, void* pElement);
 int ll_containsAll(Linkedlist* thisList, Linkedlist* thisList2);
+Linkedlist* ll_subList(Linkedlist *this, int from, int to);
+Linkedlist* ll_clone(Linkedlist *this);
+int ll_sort(Linkedlist *this, int (*pFunc)(void*, void*), int order);
+Linkedlist* ll_map(Linkedlist *this, void* (*pFunc)(void *element));
+Linkedlist* ll_filter(Linkedlist *this, int (*fn)(void*));

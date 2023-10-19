@@ -2,6 +2,6 @@
 #define PARSER_H_INCLUDED
 #include "LinkedList.h"
 
-int parser_ServiciosDesdeTexto(FILE* file, Linkedlist* arrayListaServicios);
+int parser_entityFromText(FILE* file, Linkedlist* arrayList);
 
 #endif // PARSER_H_INCLUDED

@@ -7,9 +7,9 @@
 
 int main()
 {
-    int seguir = 1;
+    int stop = 0;
     int flag = 0;
-    char nombreArchivo[30];
+    char fileName[30];
     Linkedlist* listaServicios = ll_newLinkedList();
 
     do
@@ -18,10 +18,10 @@ int main()
         {
             case 1:
                 //cargar archivo
-                pedirArchivoCSV(nombreArchivo, "\nPor favor, ingrese el nombre del archivo con extension .csv: ", "\nEl nombre no es valida");
-                if(controller_cargarArchivoDesdeTexto(nombreArchivo, listaServicios))
+                askForCSVFile(fileName, "\nPor favor, ingrese el nombre del archivo con extension .csv: ", "\nEl nombre no es valida");
+                if(controller_loadFileFromText(fileName, listaServicios))
                 {
-                    printf("\nEl archivo '%s' se ha cargado correctamente.", nombreArchivo);
+                    printf("\nEl archivo '%s' se ha cargado correctamente.", fileName);
                     flag = 1;
                 }
                 else
@@ -30,16 +30,15 @@ int main()
                 }
                 break;
             case 2:
-                //imprimir lista
                 if(flag)
                 {
-                    if(controller_imprimirLista(listaServicios))
+                    if(controller_printList(listaServicios))
                     {
                         printf("\nSe imprimio la lista correctamente.");
                     }
                     else
                     {
-                        printf("\nHubo un problema al imprimir '%s'.", nombreArchivo);
+                        printf("\nHubo un problema al imprimir '%s'.", fileName);
                     }
                 }
                 else
@@ -48,10 +47,16 @@ int main()
                 }
                 break;
             case 3:
-                //asignar totales
                 if(flag)
                 {
-
+                    if(controller_assignTotals(listaServicios))
+                    {
+                        printf("\nTotales asignados con exito!");
+                    }
+                    else
+                    {
+                        printf("\nHubo un problema al asignar los totales.");
+                    }
                 }
                 else
                 {
@@ -59,45 +64,91 @@ int main()
                 }
                 break;
             case 4:
-                //filtrar por tipo
                 if(flag)
                 {
+                    switch(menuFiltros())
+                    {
+                        case 1:
+                            if(controller_filter_Minorista(listaServicios))
+                            {
+                                printf("\nSe cargo la lista filtrada de minorista.");
+                            }
+                            else
+                            {
+                                printf("\nHubo un problema al cargar la lista filtrada.");
+                            }
+                            break;
 
+                        case 2:
+                            if(controller_filter_Mayorista(listaServicios))
+                            {
+                                printf("\nSe cargo la lista filtrada de mayorista.");
+                            }
+                            else
+                            {
+                                printf("\nHubo un problema al cargar la lista filtrada.");
+                            }
+                            break;
+
+                        case 3:
+                            if(controller_filter_Exportar(listaServicios))
+                            {
+                                printf("\nSe cargo la lista filtrada de exportar.");
+                            }
+                            else
+                            {
+                                printf("\nHubo un problema al cargar la lista filtrada.");
+                            }
+                            break;
+                    }
                 }
                 else
                 {
-                    printf("\n\nPrimero debes cargar el archivo.");
+                    printf("\nTodavia no se cargo el archivo.");
                 }
                 break;
             case 5:
-                //mostrar servicios
                 if(flag)
                 {
-
+                    if(controller_sortList(listaServicios))
+                    {
+                        printf("\nSe ordeno la lista exitosamente.");
+                    }
+                    else
+                    {
+                        printf("\nHubo un problema al ordenar la lista.");
+                    }
                 }
                 else
                 {
-                    printf("\n\nPrimero debes cargar el archivo.");
+                    printf("\nTodavia no se cargo el archivo.");
                 }
                 break;
             case 6:
-                //guardar servicios
                 if(flag)
                 {
-
+                    askForCSVFile(fileName, "¿Con que nombre desea guardar la lista? (.csv): ", "\nEl nombre no es valido. ");
+                    if(controller_saveFileFromText(fileName, listaServicios))
+                    {
+                        printf("\nSe guardo la lista exitosamente!");
+                    }
+                    else
+                    {
+                        printf("\nHubo un problema al guardar la lista.");
+                    }
                 }
                 else
                 {
-                    printf("\n\nPrimero debes cargar el archivo.");
+                    printf("\nTodavia no se cargo el archivo.");
                 }
                 break;
             case 7:
                 //salir
                 printf("\n\nGracias por utilizar este programa!");
-                seguir = 0;
+                stop = 1;
                 break;
         }
-    }while(seguir == 1);
+    }while(stop == 0);
 
     return 0;
 }

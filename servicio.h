@@ -1,5 +1,5 @@
-#ifndef SERVICIO_H_INCLUDED
-#define SERVICIO_H_INCLUDED
+#ifndef entity_H_INCLUDED
+#define entity_H_INCLUDED
 
 typedef struct
 {
@@ -8,33 +8,40 @@ typedef struct
     int tipo;
     float precioUnitario;
     int cantidad;
-    int totalServicio;
+    float totalServicio;
 }eServicio;
 
-#endif // SERVICIO_H_INCLUDED
+#endif // entity_H_INCLUDED
 
-eServicio* newServicio();
-eServicio* servicio_newParametros(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr);
+eServicio* entity_new();
+eServicio* entity_newParameters(char* idStr, char* descripcionStr, char* tipoStr, char* precioUnitarioStr, char* cantidadStr, char* totalServicioStr);
 
-void servicio_deleteServicio(eServicio* unServicio);
+void entity_deleteEntity(eServicio* entity);
 
-int servicio_setId(eServicio* unServicio, int idServicio);
-int servicio_getId(eServicio* unServicio, int* idServicio);
+int entity_setId(eServicio* entity, int idServicio);
+int entity_getId(eServicio* entity, int* idServicio);
 
-int servicio_setDescripcion(eServicio* unServicio, char* descripcion);
-int servicio_getDescripcion(eServicio* unServicio, char* descripcion);
+int entity_setDescripcion(eServicio* entity, char* descripcion);
+int entity_getDescripcion(eServicio* entity, char* descripcion);
 
-int servicio_setTipo(eServicio* unServicio, int tipo);
-int servicio_getTipo(eServicio* unServicio, int* tipo);
+int entity_setTipo(eServicio* entity, int tipo);
+int entity_getTipo(eServicio* entity, int* tipo);
 
-int servicio_setPrecioUnitario(eServicio* unServicio, float precioUnitario);
-int servicio_getPrecioUnitario(eServicio* unServicio, float* precioUnitario);
+int entity_setPrecioUnitario(eServicio* entity, float precioUnitario);
+int entity_getPrecioUnitario(eServicio* entity, float* precioUnitario);
 
-int servicio_setCantidad(eServicio* unServicio, int cantidad);
-int servicio_getCantidad(eServicio* unServicio, int* cantidad);
+int entity_setCantidad(eServicio* entity, int cantidad);
+int entity_getCantidad(eServicio* entity, int* cantidad);
 
-int servicio_setTotalServicios(eServicio* unServicio, int totalServicio);
-int servicio_getTotalServicios(eServicio* unServicio, int* totalServicio);
+int entity_setTotalServicios(eServicio* entity, float totalServicio);
+int entity_getTotalServicios(eServicio* entity, float* totalServicio);
 
-void servicio_mostrarEncabezado();
-int servicio_mostrarUnServicio(eServicio* unServicio);
+void entity_showHeader();
+int entity_showOneEntity(eServicio* entity);
+
+void* entity_map(void* element);
+int entity_filterByMinorista(void* element);
+int entity_filterByMayorista(void* element);
+int entity_filterByExportar(void* element);
+int entity_sortByDescripcion(void* item1, void* item2);
+

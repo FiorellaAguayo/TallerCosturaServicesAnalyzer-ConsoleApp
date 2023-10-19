@@ -5,23 +5,20 @@
 static Node* getNode(Linkedlist *this, int nodeIndex);
 static int addNode(Linkedlist *this, int nodeIndex, void *pElement);
 
-/** \brief Crea un nuevo LinkedList en memoria de manera dinamica
- *
- *  \param void
- *  \return LinkedList* Retorna (NULL) en el caso de no conseguir espacio en memoria
- *                      o el puntero al espacio reservado
+/**
+ * @brief Crea una nueva lista enlazada vacía.
+ * Esta función crea una nueva lista enlazada vacía y devuelve un puntero a ella.
+ * @return Puntero la nueva lista enlazada, o NULL en caso de error.
  */
 Linkedlist* ll_newLinkedList(void)
 {
 	Linkedlist *this = NULL;
-
 	this = (Linkedlist*) malloc(sizeof(Linkedlist));
 	if (this != NULL)
 	{
 		this->size = 0;
 		this->pFirstNode = NULL;
 	}
-
 	return this;
 }
 
@@ -240,7 +237,7 @@ int ll_remove(Linkedlist *this, int index)
 					auxNodeDos->pNextNode = auxNodeUno->pNextNode;
 					free(auxNodeUno);
 					this->size--;
-					returnAux = 0; //repito porque funciona solo si entra aca.
+					returnAux = 0;
 				}
 			}
 		}
@@ -469,11 +466,11 @@ Linkedlist* ll_subList(Linkedlist *this, int from, int to)
 	return cloneArray;
 }
 
-/** \brief Crea y retorna una nueva lista con los elementos de la lista pasada como parametro
- *
- * \param pList LinkedList* Puntero a la lista
- * \return LinkedList* Retorna  (NULL) Error: si el puntero a la listas es NULL
- (puntero a la nueva lista) Si ok
+/**
+ * @brief Clona una lista creando una nueva lista que contiene los mismos elementos.
+ * Esta función clona una lista creando una nueva lista que contiene los mismos elementos que la lista original.
+ * @param this Puntero a la lista que se clonará.
+ * @return Puntero a la nueva lista clonada, o NULL en caso de error (puntero nulo).
  */
 Linkedlist* ll_clone(Linkedlist *this)
 {
@@ -485,6 +482,14 @@ Linkedlist* ll_clone(Linkedlist *this)
 	return listaClonada;
 }
 
+/**
+ * @brief Ordena una lista en función de una función de comparación y un orden dado.
+ * Esta función ordena una lista utilizando una función de comparación y el orden especificado. La lista se modifica en su lugar.
+ * @param this Puntero a la lista que se ordenará.
+ * @param pFunc Puntero a la función de comparación que determina el orden de los elementos.
+ * @param order Valor entero que indica el orden de clasificación (0 para ascendente, 1 para descendente).
+ * @return Devuelve 0 si la lista se ordena correctamente, -1 en caso de error (punteros nulos o valor de orden no válido).
+ */
 int ll_sort(Linkedlist *this, int (*pFunc)(void*, void*), int order)
 {
 	int returnAux = -1;
@@ -509,6 +514,68 @@ int ll_sort(Linkedlist *this, int (*pFunc)(void*, void*), int order)
 		}
 		returnAux = 0;
 	}
-
 	return returnAux;
+}
+
+/**
+ * @brief Aplica una función a cada elemento de la lista y modifica los elementos con el resultado.
+ * Esta función aplica una función a cada elemento de la lista, y los elementos se modifican con el resultado de la función. La lista original se modifica en su lugar.
+ * @param this Puntero a la lista en la que se aplicará la función.
+ * @param pFunc Puntero a la función que se aplicará a cada elemento.
+ * @return Puntero a la misma lista original (modificada), o NULL en caso de error (punteros nulos).
+ */
+Linkedlist* ll_map(Linkedlist *this, void* (*pFunc)(void *element))
+{
+	Linkedlist *arrayList = NULL;
+	void *elemento;
+
+	if (this != NULL && pFunc != NULL)
+	{
+		for (int i = 0; i < ll_len(this); i++)
+		{
+			elemento = ll_get(this, i);
+
+			if (elemento != NULL)
+			{
+				elemento = pFunc(elemento);
+
+				if (elemento != NULL)
+				{
+					ll_set(this, i, elemento);
+				}
+			}
+		}
+	}
+	return arrayList;
+}
+
+/**
+ * @brief Filtra los elementos de la lista utilizando una función de filtrado.
+ * Esta función filtra los elementos de la lista utilizando una función de filtrado y devuelve una nueva lista que contiene los elementos que cumplen con el filtro.
+ * @param this Puntero a la lista que se filtrará.
+ * @param fn Puntero a la función de filtrado que determina qué elementos se incluyen en la nueva lista.
+ * @return Puntero a la nueva lista que contiene los elementos filtrados, o NULL en caso de error (punteros nulos).
+ */
+Linkedlist* ll_filter(Linkedlist *this, int (*fn)(void*))
+{
+	void *pElemento;
+	Linkedlist *filterArray = NULL;
+	int tam;
+
+	if (this != NULL && fn != NULL)
+	{
+		filterArray = ll_newLinkedList();
+		tam = ll_len(this);
+
+		for (int i = 0; i < tam; i++)
+		{
+			pElemento = ll_get(this, i);
+			if (fn(pElemento) == 1)
+			{
+				ll_add(filterArray, pElemento);
+			}
+		}
+	}
+
+	return filterArray;
 }

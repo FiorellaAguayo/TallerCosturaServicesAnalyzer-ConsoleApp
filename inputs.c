@@ -4,183 +4,210 @@
 #include <ctype.h>
 #include "inputs.h"
 
-static void imprimirMensaje(char mensaje[]);
-static void pedirDato(char cadena[]);
-static int ValidarSoloLetras(char cadena[]);
-static int ordenarCadena(char cadena[]);
+static void printMessage(char message[]);
+static void askForData(char text[]);
+static int validateInteger(char integerToValidate[]);
+static int validateOnlyCharacters(char text[]);
+static int orderString(char text[]);
 
 /**
  * @brief Imprime un mensaje en la consola.
  * Esta función imprime el mensaje proporcionado en la consola si no es NULL.
- * @param mensaje El mensaje que se imprimirá.
+ * @param message El mensaje que se imprimirá.
  */
-static void imprimirMensaje(char mensaje[])
+static void printMessage(char message[])
 {
-    if(mensaje != NULL)
+    if(message != NULL)
     {
-        printf(mensaje);
+        printf(message);
     }
 }
 
 /**
  * @brief Lee una cadena de caracteres desde la consola.
  * Esta función lee una cadena de caracteres desde la consola y la almacena en el búfer proporcionado.
- * @param cadena El búfer donde se almacenará la cadena de entrada.
+ * @param text El búfer donde se almacenará la cadena de entrada.
  */
-static void pedirDato(char cadena[])
+static void askForData(char text[])
 {
-    if(cadena != NULL)
+    if(text != NULL)
     {
         char buffer[256];
         fflush(stdin);
         fgets(buffer, sizeof(buffer), stdin);
         buffer[strlen(buffer) - 1] = '\0';
-        strcpy(cadena, buffer);
+        strcpy(text, buffer);
     }
 }
 
 /**
  * @brief Valida si una cadena representa un número entero.
  * Esta función verifica si la cadena proporcionada se puede convertir en un número entero.
- * @param enteroAValidar La cadena que se va a validar.
+ * @param integerToValidate La cadena que se va a validar.
  * @return Devuelve 1 si la cadena es un número entero válido, 0 en caso contrario.
  */
-int validarEntero(char enteroAValidar[])
+static int validateInteger(char integerToValidate[])
 {
-    int todoOk = 1;
-    if(strlen(enteroAValidar) > 0)
+    int allOk = 1;
+    if(strlen(integerToValidate) > 0)
     {
-        for(int i = 0; i < strlen(enteroAValidar); i++)
+        for(int i = 0; i < strlen(integerToValidate); i++)
         {
-            if(isdigit(enteroAValidar[i]) == 0)
+            if(isdigit(integerToValidate[i]) == 0)
             {
-                if(i == 0 && enteroAValidar[0] == '-')
+                if(i == 0 && integerToValidate[0] == '-')
                 {
-                    todoOk = 1;
+                    allOk = 1;
                 }
                 else
                 {
-                    todoOk = 0;
+                    allOk = 0;
                 }
             }
         }
     }
     else
     {
-        todoOk = 0;
+        allOk = 0;
     }
-    return todoOk;
+    return allOk;
 }
 
 /**
  * @brief Solicita al usuario que ingrese un número entero dentro de un rango específico.
  * Esta función muestra un mensaje al usuario, solicita una entrada y valida si el valor ingresado es un número entero válido
  * dentro del rango especificado.
- * @param enteroValidado Puntero a la variable donde se almacenará el número entero validado.
- * @param mensaje El mensaje que se muestra como indicación.
- * @param mensajeError El mensaje de error que se muestra para una entrada no válida.
- * @param minimo El valor mínimo permitido para el entero.
- * @param maximo El valor máximo permitido para el entero.
+ * @param validatedInteger Puntero a la variable donde se almacenará el número entero validado.
+ * @param message El mensaje que se muestra como indicación.
+ * @param messageError El mensaje de error que se muestra para una entrada no válida.
+ * @param minimum El valor mínimo permitido para el entero.
+ * @param maximum El valor máximo permitido para el entero.
  * @return Devuelve 1 si se ingresa un número entero válido dentro del rango, 0 en caso contrario.
  */
-int pedirEntero(int* enteroValidado, char mensaje[], char mensajeError[], int minimo, int maximo)
+int askForInteger(int* validatedInteger, char message[], char messageError[], int minimum, int maximum)
 {
-    int todoOk = 0;
-    if(enteroValidado != NULL && mensaje != NULL && mensajeError != NULL && minimo < maximo)
+    int allOk = 0;
+    if(validatedInteger != NULL && message != NULL && messageError != NULL && minimum < maximum)
     {
-        char auxEntero[150];
-        imprimirMensaje(mensaje);
-        pedirDato(auxEntero);
-
-        while(validarEntero(auxEntero) == 0 || atoi(auxEntero) > maximo || atoi(auxEntero) < minimo)
+        char auxInteger[150];
+        printMessage(message);
+        askForData(auxInteger);
+        while(validateInteger(auxInteger) == 0 || atoi(auxInteger) > maximum || atoi(auxInteger) < minimum)
         {
-            imprimirMensaje(mensajeError);
-            pedirDato(auxEntero);
+            printMessage(messageError);
+            askForData(auxInteger);
         }
-
-        *enteroValidado = atoi(auxEntero);
-        todoOk = 1;
+        *validatedInteger = atoi(auxInteger);
+        allOk = 1;
     }
-    return todoOk;
+    return allOk;
 }
 
-static int ValidarSoloLetras(char cadena[])
+/**
+ * @brief Valida si una cadena de caracteres contiene solo letras (sin espacios ni números).
+ * Esta función verifica si una cadena de caracteres contiene exclusivamente letras del alfabeto, sin espacios ni números.
+ * @param text La cadena de caracteres que se desea validar.
+ * @return Devuelve 1 si la cadena contiene solo letras, 0 en caso contrario.
+ */
+static int validateOnlyCharacters(char text[])
 {
-	int soloHayLetras = 1;
+	int onlyHasCharacters = 1;
 	int i = 0;
-	if (cadena != NULL)
+	if (text != NULL)
 	{
-		while (cadena[i] != '\0')
+		while (text[i] != '\0')
 		{
-			if (cadena[i] != ' ' && (cadena[i] < 'a' || cadena[i] > 'z') && (cadena[i] < 'A' || cadena[i] > 'Z'))
+			if (text[i] != ' ' && (text[i] < 'a' || text[i] > 'z') && (text[i] < 'A' || text[i] > 'Z'))
 			{
-				soloHayLetras = 0;
+				onlyHasCharacters = 0;
 			}
 			i++;
 		}
 	}
-	return soloHayLetras;
+	return onlyHasCharacters;
 }
 
-static int ordenarCadena(char cadena[])
+/**
+ * @brief Ordena una cadena de caracteres como una frase capitalizada.
+ * Esta función convierte la primera letra de la cadena en mayúscula y las letras iniciales de cada palabra en minúscula,
+ * manteniendo el resto de la cadena en minúscula.
+ * @param text La cadena de caracteres que se desea ordenar como frase capitalizada.
+ * @return Devuelve 1 si la cadena se ha ordenado correctamente, 0 en caso de error (puntero nulo).
+ */
+static int orderString(char text[])
 {
-	int todoOk = 0;
-	if (cadena != NULL)
+	int allOk = 0;
+	if (text != NULL)
 	{
-		strlwr(cadena);
-		cadena[0] = toupper(cadena[0]);
-
-		for (int i = 0; cadena[i] != '\0'; i++)
+		strlwr(text);
+		text[0] = toupper(text[0]);
+		for(int i = 0; text[i] != '\0'; i++)
 		{
-			if (cadena[i] == ' ')
-				cadena[i + 1] = toupper(cadena[i + 1]);
+			if (text[i] == ' ')
+            text[i + 1] = toupper(text[i + 1]);
 		}
-		todoOk = 1;
+		allOk = 1;
 	}
-	return todoOk;
+	return allOk;
 }
 
-int pedirCadena(char* cadenaValidada, char mensaje[], char mensajeError[], int maximo)
+/**
+ * @brief Solicita al usuario una entrada de texto y realiza validaciones y formato específicos.
+ * Esta función muestra un mensaje al usuario, solicita una entrada de texto y aplica validaciones. Luego, formatea el texto
+ * para que la primera letra de cada palabra esté en mayúscula y el resto en minúscula.
+ * @param validatedText Puntero a la variable donde se almacenará el texto validado y formateado.
+ * @param message El mensaje que se muestra como indicación.
+ * @param messageError El mensaje de error que se muestra para una entrada no válida.
+ * @param maximum La longitud máxima permitida para el texto.
+ * @return Devuelve 1 si se ingresa un texto válido y se aplica el formato correctamente, 0 en caso contrario.
+ */
+int askForText(char* validatedText, char message[], char messageError[], int maximum)
 {
-    int todoOk = 0;
-    if(cadenaValidada != NULL && mensaje != NULL && mensajeError != NULL && maximo > 0)
+    int allOk = 0;
+    if(validatedText != NULL && message != NULL && messageError != NULL && maximum > 0)
     {
-        char auxCadena[256];
-		imprimirMensaje(mensaje);
-		pedirDato(auxCadena);
-
-		while(strlen(auxCadena) > maximo || ValidarSoloLetras(auxCadena) == 0 || auxCadena[0] == 0)
+        char auxText[256];
+		printMessage(message);
+		askForData(auxText);
+		while(strlen(auxText) > maximum || validateOnlyCharacters(auxText) == 0 || auxText[0] == 0)
         {
-            imprimirMensaje(mensajeError);
-		    pedirDato(auxCadena);
+            printMessage(messageError);
+		    askForData(auxText);
         }
-        strcpy(cadenaValidada, auxCadena);
-        ordenarCadena(cadenaValidada);
-
-        todoOk = 1;
+        strcpy(validatedText, auxText);
+        orderString(validatedText);
+        allOk = 1;
     }
-    return todoOk;
+    return allOk;
 }
 
-int pedirArchivoCSV(char* cadena, char* mensaje, char* mensajeError)
+/**
+ * @brief Solicita al usuario un nombre de archivo en formato CSV y realiza validaciones.
+ * Esta función muestra un mensaje al usuario, solicita un nombre de archivo y verifica si cumple con el formato de archivo CSV
+ * (extensión ".csv"). Luego, almacena el nombre de archivo en la variable `text`.
+ * @param text Puntero a la variable donde se almacenará el nombre de archivo válido.
+ * @param message El mensaje que se muestra como indicación.
+ * @param messageError El mensaje de error que se muestra para una entrada no válida.
+ * @return Devuelve 1 si se ingresa un nombre de archivo en formato CSV válido, 0 en caso contrario.
+ */
+int askForCSVFile(char* text, char* message, char* messageError)
 {
-    int todoOk = 0;
-    if (cadena != NULL && mensaje != NULL && mensajeError != NULL)
+    int allOk = 0;
+    if (text != NULL && message != NULL && messageError != NULL)
     {
-        char auxCadena[256];
-        printf("%s", mensaje);
-        scanf("%s", auxCadena);
-
-        int len = strlen(auxCadena);
-        if (len >= 4 && strcmp(auxCadena + len - 4, ".csv") == 0)
+        char auxText[256];
+        printf("%s", message);
+        scanf("%s", auxText);
+        int len = strlen(auxText);
+        if (len >= 4 && strcmp(auxText + len - 4, ".csv") == 0)
         {
-            strcpy(cadena, auxCadena);
-            todoOk = 1;
+            strcpy(text, auxText);
+            allOk = 1;
         }
         else
         {
-            printf("%s", mensajeError);
+            printf("%s", messageError);
         }
     }
-    return todoOk;
+    return allOk;
 }

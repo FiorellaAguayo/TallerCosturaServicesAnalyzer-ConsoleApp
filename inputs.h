@@ -1,9 +1,8 @@
 #ifndef INPUTS_H_INCLUDED
 #define INPUTS_H_INCLUDED
 
-int validarEntero(char enteroAValidar[]);
-int pedirEntero(int* enteroValidado, char mensaje[], char mensajeError[], int minimo, int maximo);
-int pedirCadena(char* cadenaValidada, char mensaje[], char mensajeError[], int maximo);
-int pedirArchivoCSV(char* cadena, char* mensaje, char* mensajeError);
+int askForInteger(int* validatedInteger, char message[], char messageError[], int minimum, int maximum);
+int askForText(char* validatedText, char message[], char messageError[], int maximum);
+int askForCSVFile(char* text, char* message, char* messageError);
 
 #endif // INPUTS_H_INCLUDED
